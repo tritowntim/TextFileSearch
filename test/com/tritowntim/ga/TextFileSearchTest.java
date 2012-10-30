@@ -18,6 +18,7 @@ public class TextFileSearchTest {
     private final String searchForThisText = "search-for-this-text";
     private InputValidator inputValidator;
     private FileReader fileReader;
+    private String warAndPeaceFilePath = "/Users/tritowntim/war-and-peace.txt";
 
     @Before
     public void setup() {
@@ -113,7 +114,7 @@ public class TextFileSearchTest {
     public void readFile() throws Exception {
         
         String fileContents = fileReader.readFile(testSourceFilePath);
-        assertTrue(fileContents.indexOf("public class TextFileSearchTest") > -1);
+        assertTrue(fileContents.indexOf("public class TextFileSearchTest".toLowerCase()) > -1);
     }
 
     @Test
@@ -124,6 +125,34 @@ public class TextFileSearchTest {
     
     @Test
     public void readWarAndPeace() throws Exception { 
-        String fileContents = fileReader.readFile("/Users/tritowntim/war-and-peace.txt");
+        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+    }
+    
+    @Test
+    public void countInstances() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        WordSearcher wordSearcher = new WordSearcher();
+        assertEquals(4, wordSearcher.countInstances(fileContents, "poor girl"));
+    }
+    
+    @Test
+    public void countInstancesCaseInsensitive() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        WordSearcher wordSearcher = new WordSearcher();
+        assertEquals(4, wordSearcher.countInstances(fileContents, "PooR GirL"));
+    }
+    
+    @Test
+    public void countZeroInstances() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        WordSearcher wordSearcher = new WordSearcher();
+        assertEquals(0, wordSearcher.countInstances(fileContents, "Please send me an email"));
+    }
+    
+    @Test
+    public void countHundredsOfInstances() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        WordSearcher wordSearcher = new WordSearcher();
+        assertEquals(633, wordSearcher.countInstances(fileContents, "nicholas"));
     }
 }
