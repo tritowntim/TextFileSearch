@@ -12,12 +12,14 @@ public class TextFileSearchTest {
 
     private String mainSourceFilePath;
     private String invalidSourceFilePath;
+    private String testSourceFilePath;
     private final String searchForThisText = "search-for-this-text";
         
     @Before
     public void setup() {
         mainSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch.java";
         invalidSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch-does-not-exist.java";
+        testSourceFilePath = System.getProperty("user.dir") + "/test/com/tritowntim/ga/TextFileSearchTest.java";
     }
 
     @Test()
@@ -99,6 +101,18 @@ public class TextFileSearchTest {
         arguments[0] = mainSourceFilePath;
         arguments[1] = "";
         TextFileSearch.main(arguments);        
+    }
+    
+    @Test
+    public void readFile() throws Exception {
+        String fileContents = TextFileSearch.readFile(testSourceFilePath);   
+        assertTrue(fileContents.indexOf("public class TextFileSearchTest") > -1);
+    }
+
+    @Test
+    public void readFileWithWrongContents() throws Exception {
+        String fileContents = TextFileSearch.readFile(mainSourceFilePath);   
+        assertEquals(-1, fileContents.indexOf("public class TextFileSearchTest"));
     }
     
 }

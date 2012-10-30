@@ -1,6 +1,10 @@
 package com.tritowntim.ga;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -28,16 +32,29 @@ public class TextFileSearch {
                     + "'. Please try again.");
         } else if (hasBlankSearchCriteria(args[1])) {
             throw new RuntimeException("Program failed: no search criteria provided. "
-                    + "Please provide search criteria " 
-                    + " as the second argument to this program.");            
+                    + "Please provide search criteria "
+                    + " as the second argument to this program.");
         }
     }
 
     static boolean fileExists(String path) {
         return (new File(path)).exists();
     }
-    
+
     static boolean hasBlankSearchCriteria(String criteria) {
         return criteria == null || criteria.length() == 0;
+    }
+
+    static String readFile(String path) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "utf-8"));
+        StringBuilder builder = new StringBuilder();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line.trim());
+        }
+
+        reader.close();
+        return builder.toString();
     }
 }
