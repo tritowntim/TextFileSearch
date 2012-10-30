@@ -14,12 +14,14 @@ public class TextFileSearchTest {
     private String invalidSourceFilePath;
     private String testSourceFilePath;
     private final String searchForThisText = "search-for-this-text";
-        
+    private InputValidator iv;
+
     @Before
     public void setup() {
         mainSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch.java";
         invalidSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch-does-not-exist.java";
         testSourceFilePath = System.getProperty("user.dir") + "/test/com/tritowntim/ga/TextFileSearchTest.java";
+        iv = new InputValidator();
     }
 
     @Test()
@@ -53,12 +55,12 @@ public class TextFileSearchTest {
 
     @Test
     public void fileExists() throws Exception {
-        assertTrue(TextFileSearch.fileExists(mainSourceFilePath));
+        assertTrue(iv.fileExists(mainSourceFilePath));
     }
 
     @Test
     public void fileDoesNotExist() throws Exception {
-        assertFalse(TextFileSearch.fileExists(invalidSourceFilePath));
+        assertFalse(iv.fileExists(invalidSourceFilePath));
     }
 
     @Test
@@ -76,43 +78,42 @@ public class TextFileSearchTest {
         arguments[1] = searchForThisText;
         TextFileSearch.main(arguments);
     }
-    
+
     @Test
-    public void nullString() throws Exception { 
-        assertTrue(TextFileSearch.hasBlankSearchCriteria(null));        
+    public void nullString() throws Exception {
+        assertTrue(iv.hasBlankSearchCriteria(null));
     }
-    
+
     @Test
-    public void emptyString() throws Exception { 
-        assertTrue(TextFileSearch.hasBlankSearchCriteria(""));        
+    public void emptyString() throws Exception {
+        assertTrue(iv.hasBlankSearchCriteria(""));
     }
-    
-    @Test(expected=RuntimeException.class)
+
+    @Test(expected = RuntimeException.class)
     public void nullSearchString() throws Exception {
         String[] arguments = new String[2];
         arguments[0] = mainSourceFilePath;
         arguments[1] = null;
-        TextFileSearch.main(arguments);        
+        TextFileSearch.main(arguments);
     }
-    
-    @Test(expected=RuntimeException.class)
+
+    @Test(expected = RuntimeException.class)
     public void emptySearchString() throws Exception {
         String[] arguments = new String[2];
         arguments[0] = mainSourceFilePath;
         arguments[1] = "";
-        TextFileSearch.main(arguments);        
+        TextFileSearch.main(arguments);
     }
-    
+
     @Test
     public void readFile() throws Exception {
-        String fileContents = TextFileSearch.readFile(testSourceFilePath);   
+        String fileContents = TextFileSearch.readFile(testSourceFilePath);
         assertTrue(fileContents.indexOf("public class TextFileSearchTest") > -1);
     }
 
     @Test
     public void readFileWithWrongContents() throws Exception {
-        String fileContents = TextFileSearch.readFile(mainSourceFilePath);   
+        String fileContents = TextFileSearch.readFile(mainSourceFilePath);
         assertEquals(-1, fileContents.indexOf("public class TextFileSearchTest"));
     }
-    
 }
