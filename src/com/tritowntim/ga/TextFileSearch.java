@@ -26,10 +26,18 @@ public class TextFileSearch {
                     + "There was no file found at the provided path of '"
                     + args[0]
                     + "'. Please try again.");
+        } else if (hasBlankSearchCriteria(args[1])) {
+            throw new RuntimeException("Program failed: no search criteria provided. "
+                    + "Please provide search criteria " 
+                    + " as the second argument to this program.");            
         }
     }
 
     static boolean fileExists(String path) {
         return (new File(path)).exists();
+    }
+    
+    static boolean hasBlankSearchCriteria(String criteria) {
+        return criteria == null || criteria.length() == 0;
     }
 }
