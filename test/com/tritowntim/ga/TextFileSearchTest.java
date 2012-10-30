@@ -1,5 +1,7 @@
 package com.tritowntim.ga;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -14,14 +16,16 @@ public class TextFileSearchTest {
     private String invalidSourceFilePath;
     private String testSourceFilePath;
     private final String searchForThisText = "search-for-this-text";
-    private InputValidator iv;
+    private InputValidator inputValidator;
+    private FileReader fileReader;
 
     @Before
     public void setup() {
         mainSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch.java";
         invalidSourceFilePath = System.getProperty("user.dir") + "/src/com/tritowntim/ga/TextFileSearch-does-not-exist.java";
         testSourceFilePath = System.getProperty("user.dir") + "/test/com/tritowntim/ga/TextFileSearchTest.java";
-        iv = new InputValidator();
+        inputValidator = new InputValidator();
+        fileReader = new FileReader();
     }
 
     @Test()
@@ -55,12 +59,12 @@ public class TextFileSearchTest {
 
     @Test
     public void fileExists() throws Exception {
-        assertTrue(iv.fileExists(mainSourceFilePath));
+        assertTrue(inputValidator.fileExists(mainSourceFilePath));
     }
 
     @Test
     public void fileDoesNotExist() throws Exception {
-        assertFalse(iv.fileExists(invalidSourceFilePath));
+        assertFalse(inputValidator.fileExists(invalidSourceFilePath));
     }
 
     @Test
@@ -81,12 +85,12 @@ public class TextFileSearchTest {
 
     @Test
     public void nullString() throws Exception {
-        assertTrue(iv.hasBlankSearchCriteria(null));
+        assertTrue(inputValidator.hasBlankSearchCriteria(null));
     }
 
     @Test
     public void emptyString() throws Exception {
-        assertTrue(iv.hasBlankSearchCriteria(""));
+        assertTrue(inputValidator.hasBlankSearchCriteria(""));
     }
 
     @Test(expected = RuntimeException.class)
@@ -107,13 +111,19 @@ public class TextFileSearchTest {
 
     @Test
     public void readFile() throws Exception {
-        String fileContents = TextFileSearch.readFile(testSourceFilePath);
+        
+        String fileContents = fileReader.readFile(testSourceFilePath);
         assertTrue(fileContents.indexOf("public class TextFileSearchTest") > -1);
     }
 
     @Test
     public void readFileWithWrongContents() throws Exception {
-        String fileContents = TextFileSearch.readFile(mainSourceFilePath);
+        String fileContents = fileReader.readFile(mainSourceFilePath);
         assertEquals(-1, fileContents.indexOf("public class TextFileSearchTest"));
+    }
+    
+    @Test
+    public void readWarAndPeace() throws Exception { 
+        String fileContents = fileReader.readFile("/Users/tritowntim/war-and-peace.txt");
     }
 }

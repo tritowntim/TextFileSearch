@@ -14,21 +14,11 @@ public class TextFileSearch {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         InputValidator inputValidator = new InputValidator();
         inputValidator.validateInput(args);
-    }
-
-    static String readFile(String path) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "utf-8"));
-        StringBuilder builder = new StringBuilder();
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            builder.append(line.trim());
-        }
-
-        reader.close();
-        return builder.toString();
+        
+        FileReader fileReader = new FileReader();
+        fileReader.readFile(args[0]);
     }
 }
