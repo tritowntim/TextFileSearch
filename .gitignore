@@ -1,0 +1,16 @@
+
+# Mac OS X #
+.DS_Store
+
+# Java: Compiled Files #
+*.class
+
+# Java: Package Files #
+*.jar
+*.war
+*.ear
+
+# NetBeans #
+build/*
+
+
