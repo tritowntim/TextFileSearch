@@ -112,47 +112,47 @@ public class TextFileSearchTest {
 
     @Test
     public void readFile() throws Exception {
-        
-        String fileContents = fileReader.readFile(testSourceFilePath);
+
+        String fileContents = fileReader.readFile(testSourceFilePath,false);
         assertTrue(fileContents.indexOf("public class TextFileSearchTest".toLowerCase()) > -1);
     }
 
     @Test
     public void readFileWithWrongContents() throws Exception {
-        String fileContents = fileReader.readFile(mainSourceFilePath);
+        String fileContents = fileReader.readFile(mainSourceFilePath,false);
         assertEquals(-1, fileContents.indexOf("public class TextFileSearchTest"));
     }
-    
+
     @Test
-    public void readWarAndPeace() throws Exception { 
-        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+    public void readWarAndPeace() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
     }
-    
+
     @Test
     public void countInstances() throws Exception {
-        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
         WordSearcher wordSearcher = new WordSearcher();
-        assertEquals(4, wordSearcher.countInstances(fileContents, "poor girl"));
+        assertEquals(4, wordSearcher.countInstances(fileContents, "poor girl", true));
     }
-    
+
     @Test
     public void countInstancesCaseInsensitive() throws Exception {
-        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
         WordSearcher wordSearcher = new WordSearcher();
-        assertEquals(4, wordSearcher.countInstances(fileContents, "PooR GirL"));
+        assertEquals(4, wordSearcher.countInstances(fileContents, "PooR GirL", false));
     }
-    
+
     @Test
     public void countZeroInstances() throws Exception {
-        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
         WordSearcher wordSearcher = new WordSearcher();
-        assertEquals(0, wordSearcher.countInstances(fileContents, "Please send me an email"));
+        assertEquals(0, wordSearcher.countInstances(fileContents, "Please send me an email", false));
     }
-    
+
     @Test
     public void countHundredsOfInstances() throws Exception {
-        String fileContents = fileReader.readFile(warAndPeaceFilePath);
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
         WordSearcher wordSearcher = new WordSearcher();
-        assertEquals(633, wordSearcher.countInstances(fileContents, "nicholas"));
+        assertEquals(633, wordSearcher.countInstances(fileContents, "nicholas", false));
     }
 }

@@ -1,9 +1,6 @@
 package com.tritowntim.ga;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  *
@@ -19,6 +16,6 @@ public class TextFileSearch {
         inputValidator.validateInput(args);
         
         FileReader fileReader = new FileReader();
-        fileReader.readFile(args[0]);
+        fileReader.readFile(args[0], false);
     }
 }
