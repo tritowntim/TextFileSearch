@@ -1,5 +1,7 @@
 package com.tritowntim.ga;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -7,8 +9,7 @@ import java.util.ArrayList;
  * @author Tim Dussinger
  */
 public class WordSearcher {
-    
-    
+
     /*
      * 
      * build huge honking string out of file
@@ -36,8 +37,13 @@ public class WordSearcher {
      * 
      * 
      */
-    
     public int countInstances(String fileContents, String criteria, boolean enableLogs) {
+        ArrayList<Integer> instances = findInstances(fileContents, criteria, enableLogs);
+        Utility.log("found " + instances.size() + " instance" + (instances.size() == 1 ? "" : "s") + " of '" + criteria + "' within file");
+        return instances.size();
+    }
+
+    public ArrayList<Integer> findInstances(String fileContents, String criteria, boolean enableLogs) {
         ArrayList<Integer> instances = new ArrayList<Integer>();
         int i = 0;
         while (i > -1) {
@@ -45,12 +51,29 @@ public class WordSearcher {
             if (i > -1) {
                 instances.add(new Integer(i));
                 if (enableLogs) {
-                    Utility.log("instance " + instances.size() + " = position " + instances.get(instances.size()-1) );
+                    Utility.log("instance " + instances.size() + " = position " + instances.get(instances.size() - 1));
                 }
-                i = i + criteria.length();                
+                i = i + criteria.length();
             }
         }
-        Utility.log("found " + instances.size() + " instance" + (instances.size() == 1 ? "" : "s") + " of '" + criteria + "' within file");
-        return instances.size();
+        return instances;
+    }
+
+    public BigDecimal countAvgWordsBtwnInstances(ArrayList<Integer> instances, String fileContents, String criteria, boolean enableLogs) {
+        int total = 0;
+        int i = 0;
+        int prev = 0;
+        for (Integer inst : instances) {
+            if (i > 0) {
+                int words = fileContents.substring(prev + criteria.length(), inst.intValue()).trim().split(" ").length;
+                System.out.println("words in between = " + words);
+                total += words;
+            }
+            prev = inst.intValue();
+            i++;
+        }
+        BigDecimal avg = new BigDecimal(total).divide(new BigDecimal(instances.size() - 1), MathContext.DECIMAL32); 
+        System.out.println(avg.toString());
+        return avg;
     }
 }

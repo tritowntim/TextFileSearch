@@ -1,7 +1,8 @@
 package com.tritowntim.ga;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -19,6 +20,7 @@ public class TextFileSearchTest {
     private InputValidator inputValidator;
     private FileReader fileReader;
     private String warAndPeaceFilePath = "/Users/tritowntim/war-and-peace.txt";
+    private WordSearcher wordSearcher;
 
     @Before
     public void setup() {
@@ -27,6 +29,7 @@ public class TextFileSearchTest {
         testSourceFilePath = System.getProperty("user.dir") + "/test/com/tritowntim/ga/TextFileSearchTest.java";
         inputValidator = new InputValidator();
         fileReader = new FileReader();
+        wordSearcher = new WordSearcher();
     }
 
     @Test()
@@ -131,28 +134,49 @@ public class TextFileSearchTest {
     @Test
     public void countInstances() throws Exception {
         String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
-        WordSearcher wordSearcher = new WordSearcher();
         assertEquals(4, wordSearcher.countInstances(fileContents, "poor girl", true));
     }
 
     @Test
     public void countInstancesCaseInsensitive() throws Exception {
         String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
-        WordSearcher wordSearcher = new WordSearcher();
         assertEquals(4, wordSearcher.countInstances(fileContents, "PooR GirL", false));
     }
 
     @Test
     public void countZeroInstances() throws Exception {
         String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
-        WordSearcher wordSearcher = new WordSearcher();
         assertEquals(0, wordSearcher.countInstances(fileContents, "Please send me an email", false));
     }
 
     @Test
     public void countHundredsOfInstances() throws Exception {
         String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
-        WordSearcher wordSearcher = new WordSearcher();
         assertEquals(633, wordSearcher.countInstances(fileContents, "nicholas", false));
     }
+    
+    @Test
+    public void findInstances() throws Exception {
+        String fileContents = fileReader.readFile(warAndPeaceFilePath,false);
+        assertEquals(4, wordSearcher.findInstances(fileContents, "poor girl", false).size());
+    }
+    
+    @Test
+    public void countAverage() throws Exception {
+        String fileContents = "everybody should help out everybody else to benefit everybody in the area";
+        
+        ArrayList<Integer> instances = wordSearcher.findInstances(fileContents, "everybody", false) ;
+        
+        assertEquals(new BigDecimal(3), wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, "everybody", false));
+    }
+    
+    @Test
+    public void countAverageDecimal() throws Exception {
+        String fileContents = "everybody should definitely help out everybody else to benefit everybody in the area that everybody owns";
+        
+        ArrayList<Integer> instances = wordSearcher.findInstances(fileContents, "everybody", false) ;
+        
+        assertEquals(new BigDecimal(11).divide(new BigDecimal(3), MathContext.DECIMAL32), wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, "everybody", false));
+    }
+    
 }
