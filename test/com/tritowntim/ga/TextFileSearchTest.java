@@ -171,7 +171,7 @@ public class TextFileSearchTest {
     @Test
     public void countAverageForHundredsOfInstances() throws Exception {
         ArrayList<Integer> instances = wordSearcher.findInstances(warAndPeaceText, "nicholas", false);
-        assertEquals(new BigDecimal(11).divide(new BigDecimal(3), MathContext.DECIMAL32), wordSearcher.countAvgWordsBtwnInstances(instances, warAndPeaceText, "nicholas", false));
+        assertEquals(new BigDecimal(528520).divide(new BigDecimal(632), MathContext.DECIMAL32), wordSearcher.countAvgWordsBtwnInstances(instances, warAndPeaceText, "nicholas", false));
     }
     
 }

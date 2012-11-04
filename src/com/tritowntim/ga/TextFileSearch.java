@@ -1,6 +1,8 @@
 package com.tritowntim.ga;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +18,16 @@ public class TextFileSearch {
         inputValidator.validateInput(args);
         
         FileReader fileReader = new FileReader();
-        fileReader.readFile(args[0], false);
+        String fileContents = fileReader.readFile(args[0], false);
+        
+        WordSearcher wordSearcher = new WordSearcher();
+        ArrayList<Integer> instances = wordSearcher.findInstances(fileContents, args[1], false);
+        int instanceCount = instances.size();
+        
+        BigDecimal avgWordsBtwn = wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, args[1], false);
+        
+        System.out.println("Found " + instanceCount + " occurrence" + (instanceCount == 1 ? "" : "s") + " of '" + args[1] + "' within " + args[0]);
+        System.out.println("Average of " + avgWordsBtwn + " word" + (avgWordsBtwn.equals(BigDecimal.ONE) ? "" : "s") + " between each occurrence " + " of '" + args[1] + "' within " + args[0]);
+        
     }
 }
