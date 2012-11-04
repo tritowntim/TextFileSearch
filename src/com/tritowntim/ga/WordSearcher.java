@@ -6,44 +6,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
- *
+ * Class to search String of file contents for given String search criteria.
+ * 
  * @author Tim Dussinger
  */
 public class WordSearcher {
 
-    /*
+    /**
+     * Get the list of positions of instances of the search criteria in the file contents. 
      * 
-     * build huge honking string out of file
-     *  find all instances of search string via indexOf()
-     *  for each instance except last instance, count spaces between each instance
-     *  
-     *  replace within string...
-     *  // REGEX to return characters and spaces only?
-     *  handle punctuation first?  ( >>> use tests for all this <<< )
-     *          replace quotes?
-     *              periods?
-     *              commas?
-     *              hard returns? 
-     * 
-     * 
-     *  for string in between each string...
-     *    substr = make string of text in between 
-     *      replace hyphens with spaces
-     *      replace double spaces with spaces
-     *      trim leading, trailing spaces
-     *    count spaces in between
-     * 
-     *  calculate average
-     * 
-     * 
-     * 
+     * @param fileContents Text to be searched.
+     * @param criteria Criteria for searches.
+     * @return List of starting positions for each instance of the search criteria in the text file (output from findInstances).
      */
-    public int countInstances(String fileContents, String criteria) {
-        ArrayList<Integer> instances = findInstances(fileContents, criteria);
-        Utility.log(Level.INFO, "found " + instances.size() + " instance" + (instances.size() == 1 ? "" : "s") + " of '" + criteria + "' within file");
-        return instances.size();
-    }
-
     public ArrayList<Integer> findInstances(String fileContents, String criteria) {
         ArrayList<Integer> instances = new ArrayList<Integer>();
         int i = 0;
@@ -58,7 +33,15 @@ public class WordSearcher {
         return instances;
     }
 
-    public BigDecimal countAvgWordsBtwnInstances(ArrayList<Integer> instances, String fileContents, String criteria) {
+    /**
+     * Calculate the average words between each instance of the search criteria in the text file.
+     * 
+     * @param instances List of starting positions for each instance of the search criteria in the text file (output from findInstances).
+     * @param fileContents Text to be searched.
+     * @param criteria Criteria for searches.
+     * @return Average number of words between each instance of the 
+     */
+    public BigDecimal calcAvgWordsBtwnInstances(ArrayList<Integer> instances, String fileContents, String criteria) {
         int total = 0;
         int i = 0;
         int prev = 0;

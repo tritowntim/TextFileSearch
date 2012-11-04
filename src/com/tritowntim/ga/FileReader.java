@@ -7,14 +7,20 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 
 /**
- *
+ * Class for reading file contents into a String.
+ * 
  * @author Tim Dussinger
  */
 public class FileReader {
 
-    // The program returns both a count of the times the string appears in the file
-    // and the average number of words between each instance of the search string.
-    String readFile(String path) throws IOException {
+    /**
+     * Read file contents into a String.
+     * 
+     * @param path Complete path/address of file
+     * @return File contents, without any line breaks, and with dashes replaced by strings.
+     * @throws IOException
+     */
+    public String readFile(String path) throws IOException {
 
         Utility.log(Level.INFO, "reading file '" + path + "': begin");
 
@@ -32,8 +38,7 @@ public class FileReader {
         Utility.log(Level.INFO, "reading file '" + path + "': end");
 
         String fileContents = builder.toString().toLowerCase();
-
-        // todo: validate file actually has contents
+        
         return fileContents;
     }
 }

@@ -1,4 +1,4 @@
-package com.tritowntim.ga;
+    package com.tritowntim.ga;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -133,22 +133,22 @@ public class TextFileSearchTest {
 
     @Test
     public void countInstances() throws Exception {
-        assertEquals(4, wordSearcher.countInstances(warAndPeaceText, "poor girl"));
+        assertEquals(4, wordSearcher.findInstances(warAndPeaceText, "poor girl").size());
     }
 
     @Test
     public void countInstancesCaseInsensitive() throws Exception {
-        assertEquals(4, wordSearcher.countInstances(warAndPeaceText, "PooR GirL"));
+        assertEquals(4, wordSearcher.findInstances(warAndPeaceText, "PooR GirL").size());
     }
 
     @Test
     public void countZeroInstances() throws Exception {
-        assertEquals(0, wordSearcher.countInstances(warAndPeaceText, "Please send me an email"));
+        assertEquals(0, wordSearcher.findInstances(warAndPeaceText, "Please send me an email").size());
     }
 
     @Test
     public void countHundredsOfInstances() throws Exception {
-        assertEquals(633, wordSearcher.countInstances(warAndPeaceText, "nicholas"));
+        assertEquals(633, wordSearcher.findInstances(warAndPeaceText, "nicholas").size());
     }
     
     @Test
@@ -160,13 +160,13 @@ public class TextFileSearchTest {
     public void countAverage() throws Exception {
         String fileContents = "everybody should help out everybody else to benefit everybody in the area";        
         ArrayList<Integer> instances = wordSearcher.findInstances(fileContents, "everybody") ;
-        assertEquals(new BigDecimal(3), wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, "everybody"));
+        assertEquals(new BigDecimal(3), wordSearcher.calcAvgWordsBtwnInstances(instances, fileContents, "everybody"));
     }
     
     @Test
     public void countAverageDecimal() throws Exception {
         String fileContents = "everybody should definitely help out everybody else to benefit everybody in the area that everybody owns";        
         ArrayList<Integer> instances = wordSearcher.findInstances(fileContents, "everybody") ;        
-        assertEquals(new BigDecimal(11).divide(new BigDecimal(3), MathContext.DECIMAL32), wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, "everybody"));
+        assertEquals(new BigDecimal(11).divide(new BigDecimal(3), MathContext.DECIMAL32), wordSearcher.calcAvgWordsBtwnInstances(instances, fileContents, "everybody"));
     }  
 }

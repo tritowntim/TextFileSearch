@@ -3,12 +3,18 @@ package com.tritowntim.ga;
 import java.io.File;
 
 /**
- *
+ * Class to input project command line input.
+ * 
  * @author Tim Dussinger
  */
 public class InputValidator {
 
-    void validateInput(String[] args) {
+    /**
+     * Validate that command line input arguments are accurate.
+     * 
+     * @param args Original input from command line: file name and search string, respectively.
+     */
+    public void validateInput(String[] args) {
         if (args.length != 2) {
             throw new RuntimeException("Program failed: invalid input. "
                     + "Please provide the complete file path "
@@ -26,11 +32,13 @@ public class InputValidator {
         }
     }
 
+    // whether or not file exists at specified path
     boolean fileExists(String path) {
         return (new File(path)).exists();
     }
 
-    boolean hasBlankSearchCriteria(String criteria) {
-        return criteria == null || criteria.length() == 0;
+    // whether or not given String is blank
+    boolean hasBlankSearchCriteria(String value) {
+        return value == null || value.length() == 0;
     }
 }
