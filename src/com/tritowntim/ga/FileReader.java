@@ -24,7 +24,7 @@ public class FileReader {
         String line;
         while ((line = reader.readLine()) != null) {
             if (line.trim().length() > 0) {
-                builder.append(line.trim()).append(" ");                
+                builder.append(line.replace("--"," ").trim()).append(" ");                
             }
         }
 
