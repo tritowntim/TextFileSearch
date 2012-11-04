@@ -1,6 +1,8 @@
 Java program for searching text file
 
-Example Scenario
+Hosted on Github: https://github.com/tritowntim/TextFileSearch
+
+EXAMPLE SCENARIO
 
 Searching for the word "peace" in the text file downloaded from http://www.gutenberg.org/cache/epub/2600/pg2600.txt
 
