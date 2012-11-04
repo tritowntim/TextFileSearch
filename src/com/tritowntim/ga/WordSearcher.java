@@ -66,12 +66,21 @@ public class WordSearcher {
         for (Integer inst : instances) {
             if (i > 0) {
                 int words = fileContents.substring(prev + criteria.length(), inst.intValue()).trim().split(" ").length;
-                System.out.println("words in between = " + words);
+                if (i ==8) {
+                    System.out.println(fileContents.substring(prev + criteria.length(), inst.intValue()).trim());
+                    String[] lines = fileContents.substring(prev + criteria.length(), inst.intValue()).trim().split(" ");
+                    for (int j = 0; j < lines.length; j++ ) {
+                        System.out.println(j + " [" + lines[j] + "]");
+                    }
+                }
+                System.out.println(i + " words in between = " + words);
                 total += words;
             }
             prev = inst.intValue();
             i++;
         }
+        System.out.println("total=" + total);
+        System.out.println("instances-1=" + (instances.size() - 1));
         BigDecimal avg = new BigDecimal(total).divide(new BigDecimal(instances.size() - 1), MathContext.DECIMAL32); 
         System.out.println(avg.toString());
         return avg;

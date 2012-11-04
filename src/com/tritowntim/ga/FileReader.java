@@ -23,7 +23,9 @@ public class FileReader {
 
         String line;
         while ((line = reader.readLine()) != null) {
-            builder.append(line.trim());
+            if (line.trim().length() > 0) {
+                builder.append(line.trim() + " ");                
+            }
         }
 
         reader.close();
