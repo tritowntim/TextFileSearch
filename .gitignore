@@ -5,11 +5,6 @@
 # Java: Compiled Files #
 *.class
 
-# Java: Package Files #
-*.jar
-*.war
-*.ear
-
 # NetBeans #
 build/*
 
