@@ -1,6 +1,8 @@
 Java program for searching text file
 
-Example scenario: Searching for the word "peace" in the text file downloaded from http://www.gutenberg.org/cache/epub/2600/pg2600.txt
+Example Scenario
+
+Searching for the word "peace" in the text file downloaded from http://www.gutenberg.org/cache/epub/2600/pg2600.txt
 
 Example run on the command line, from the dist directory:
 
