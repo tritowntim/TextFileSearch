@@ -27,7 +27,7 @@ public class TextFileSearch {
         BigDecimal avgWordsBtwn = wordSearcher.countAvgWordsBtwnInstances(instances, fileContents, args[1]);
         
         System.out.println("Found " + instanceCount + " occurrence" + (instanceCount == 1 ? "" : "s") + " of '" + args[1] + "' within " + args[0]);
-        System.out.println("Average of " + avgWordsBtwn + " word" + (avgWordsBtwn.equals(BigDecimal.ONE) ? "" : "s") + " between each occurrence " + " of '" + args[1] + "' within " + args[0]);
+        System.out.println("Average of " + avgWordsBtwn + " word" + (avgWordsBtwn.equals(BigDecimal.ONE) ? "" : "s") + " between each occurrence of '" + args[1] + "' within " + args[0]);
         
     }
 }
